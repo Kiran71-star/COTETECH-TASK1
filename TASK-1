@@ -1,0 +1,31 @@
+import re
+
+def check_password_strength(password):
+    # Define criteria
+    criteria = {
+        'length': len(password) >= 8,
+        'uppercase': bool(re.search(r'[A-Z]', password)),
+        'lowercase': bool(re.search(r'[a-z]', password)),
+        'numbers': bool(re.search(r'[0-9]', password)),
+        'special_characters': bool(re.search(r'[\W_]', password))
+    }
+
+    # Calculate strength
+    strength = sum(criteria.values())
+
+    # Provide feedback based on strength
+    feedback = "Password Strength: "
+    if strength <= 2:
+        feedback += "Weak"
+    elif strength == 3:
+        feedback += "Moderate"
+    else:
+        feedback += "Strong"
+
+    return feedback, criteria
+
+# Example usage
+password = input("Enter your password: ")
+feedback, criteria = check_password_strength(password)
+print(feedback)
+print("Criteria met:", criteria)
